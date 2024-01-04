@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>527</width>
+    <height>182</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Select language</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QDialog {
+    
+	background-color: rgb(35, 40, 49);
+	border: 2px solid gray;
+	border-radius: 10px;
+        
+}
+
+QPushButton {
+    background-color: rgb(22, 25, 31);
+    color: white;
+    font-size: 10pt;
+    font-weight: 700;
+    font-family: RussoOne-Regular;
+	border:1px;
+    border-radius: 20px;
+}
+
+QPushButton:hover {
+    background-color: #666;
+}
+
+QPushButton:pressed {
+    background-color: #888;
+}</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="spacing">
+      <number>13</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+    color: white;
+    font-family: RussoOne-Regular;
+    font-size: 10pt;
+    font-weight: 600;
+    background: rgb(76, 81, 93);
+    min-width: 26ex;
+    min-height: 4ex;
+	border:1px;
+    border-radius: 20px;
+    
+}</string>
+       </property>
+       <property name="text">
+        <string>Исходный язык документа</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+    color: white;
+    font-family: RussoOne-Regular;
+    font-size: 10pt;
+    font-weight: 600;
+    background: rgb(76, 81, 93);
+    min-width: 26ex;
+    min-height: 4ex;
+	border:1px;
+    border-radius: 20px;
+    
+}</string>
+       </property>
+       <property name="text">
+        <string>Язык перевода</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <property name="spacing">
+      <number>10</number>
+     </property>
+     <property name="bottomMargin">
+      <number>28</number>
+     </property>
+     <item>
+      <widget class="QComboBox" name="cobmo_input">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QComboBox {
+    color: white;
+    font-family: RussoOne-Regular;
+    font-size: 10pt;
+    font-weight: 600;
+    background: rgb(76, 81, 93);
+    min-width: 26ex;
+    min-height: 4ex;
+    selection-background-color: rgb(39, 44, 54);
+	border:1px;
+    border-radius: 10px;
+
+}
+
+QComboBox:editable {
+    background: rgb(76, 81, 93);
+}
+
+QComboBox:on { 
+    background: rgb(76, 81, 93);
+}
+
+QComboBox QAbstractItemView {
+  color: white;
+  background-color: rgb(76, 81, 93);
+  
+  selection-background-color: rgb(39, 44, 54);
+}</string>
+       </property>
+       <property name="insertPolicy">
+        <enum>QComboBox::NoInsert</enum>
+       </property>
+       <property name="sizeAdjustPolicy">
+        <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="combo_output">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="font">
+        <font>
+         <family>RussoOne-Regular</family>
+         <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QComboBox {
+    color: white;
+    font-family: RussoOne-Regular;
+    font-size: 10pt;
+    font-weight: 600;
+    background: rgb(76, 81, 93);
+    min-width: 26ex;
+    min-height: 4ex;
+    selection-background-color: rgb(39, 44, 54);
+	border:1px;
+    border-radius: 10px;
+
+}
+
+QComboBox:editable {
+    background: rgb(76, 81, 93);
+}
+
+QComboBox:on { 
+    background: rgb(76, 81, 93);
+}
+
+QComboBox QAbstractItemView {
+  color: white;
+  background-color: rgb(76, 81, 93);
+  
+  selection-background-color: rgb(39, 44, 54);
+}
+
+</string>
+       </property>
+       <property name="insertPolicy">
+        <enum>QComboBox::NoInsert</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QPushButton" name="btn_ok">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>OK</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
