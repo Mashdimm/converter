@@ -7,10 +7,10 @@ from subprocess import CREATE_NO_WINDOW
 
 from time import sleep, perf_counter
 
+
 url = 'https://litarweb.lrmuitine.lt/taric/web/securitycalc_EN'
-url_usd = 'https://www.google.com/search?q=%D0%B4%D0%BE%D0%BB%D0%BB%D0%B0%D1%80+%D0%BA+%D0%B5%D0%B2%D1%80%D0%BE&newwindow=1&sxsrf=APwXEddmIRvHcsq3L2-rwnzuss3WoEaQkg%3A1687513826459&ei=4mqVZMvIG8WL9u8PicyGkAo&ved=0ahUKEwjLwbfxjtn_AhXFhf0HHQmmAaIQ4dUDCA8&uact=5&oq=%D0%B4%D0%BE%D0%BB%D0%BB%D0%B0%D1%80+%D0%BA+%D0%B5%D0%B2%D1%80%D0%BE&gs_lcp=Cgxnd3Mtd2l6LXNlcnAQAzINCAAQigUQsQMQgwEQQzIICAAQgAQQsQMyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDoGCAAQBxAeOgcIABCKBRBDSgQIQRgAUABY1ghgmRVoAHABeACAAZgBiAHVBJIBAzQuMpgBAKABAcABAQ&sclient=gws-wiz-serp'
-url_rub = 'https://www.google.com/search?q=%D1%80%D1%83%D0%B1%D0%BB%D1%8C+%D0%BA+%D0%B5%D0%B2%D1%80%D0%BE&newwindow=1&sxsrf=APwXEdc-UHdIwjl_cIJ5Ukf30JQli9JmRA%3A1687513875190&ei=E2uVZOSZC5uC9u8P6PyeuAQ&ved=0ahUKEwik79WIj9n_AhUbgf0HHWi-B0cQ4dUDCA8&uact=5&oq=%D1%80%D1%83%D0%B1%D0%BB%D1%8C+%D0%BA+%D0%B5%D0%B2%D1%80%D0%BE&gs_lcp=Cgxnd3Mtd2l6LXNlcnAQAzIMCCMQigUQJxBGEIICMgcIABCKBRBDMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQ6BggAEAcQHjoHCCMQigUQJzoICAAQgAQQsQM6CwgAEIAEELEDEIMBOg0IABCKBRCxAxCDARBDOgoIABCABBAUEIcCOgcIABCABBAKSgQIQRgASgQIQRgAUABYhX5ggIIBaAFwAXgAgAHSAYgB2w2SAQYwLjEzLjGYAQCgAQGwARTAAQHaAQYIARABGAE&sclient=gws-wiz-serp'
-chrome_service = ChromeService('chromedriver.exe')
+
+chrome_service = ChromeService()
 chrome_service.creation_flags = CREATE_NO_WINDOW
 option_chrome = webdriver.ChromeOptions()
 option_chrome.add_argument('--window-size=1920,1080')

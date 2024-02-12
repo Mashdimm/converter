@@ -10,6 +10,7 @@ import win32com.client
 
 
 def create_tax_lv(lst_for_csv: list, current_inv: str, rate_current: str) -> None:
+    print(lst_for_csv, current_inv, rate_current)
     wb = Workbook()
     wb.guess_type = True
     ws = wb.active

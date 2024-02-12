@@ -1,6 +1,7 @@
 import pythoncom
 import os
 
+
 from openpyxl import Workbook
 from openpyxl.styles import Alignment, Border, Side, Font
 from openpyxl.drawing.image import Image
@@ -10,6 +11,8 @@ import win32com.client
 
 
 def create_payment_vet(dannye_payment: dict) -> None:
+
+
     wb = Workbook()
     ws = wb.active
     ws.title = 'Payment'
@@ -17,7 +20,8 @@ def create_payment_vet(dannye_payment: dict) -> None:
     logo.height = 160
     logo.width = 155
     thins = Side(border_style="thin", color="000000")
-    double = Side(border_style="dashDot", color="ff0000")
+    doubautole = Side(border_style="dashDot", color="ff0000")
+
 
     ws.merge_cells('B1:M1')
     ws['B1'].alignment = Alignment(horizontal='center')
@@ -351,11 +355,14 @@ def create_payment_vet(dannye_payment: dict) -> None:
     ws.page_setup.scale = 75
     folder_path = 'D:\\td'
     #name = 'D:\\td'
+
     file_name = dannye_payment['platezhka'] + '.xlsx'
     file_path = os.path.join(folder_path, file_name)
 
 
     wb.save(file_path)
+
+
     pythoncom.CoInitialize()
     Excel = win32com.client.Dispatch("Excel.Application")
     Excel.Visible = 0
