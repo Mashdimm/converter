@@ -510,13 +510,15 @@ class Convert(Ui_MainWindow, QMainWindow):
 
         try:
 
-            self.name_file = QFileDialog.getOpenFileName(self, 'Open file', 'D:\\Документация\CSV', 'CSV File (*.csv)')[
+            self.name_file = QFileDialog.getOpenFileName(self, 'Open file', 'D://Документация//CSV', 'CSV File (*.csv)')[
                 0]
             with open(self.name_file, 'r', newline='') as f:
                 reader = csv.reader(f, delimiter=';')
                 for i in reader:
                     self.lst_full.append(
-                        [i[0], i[1].replace('"', '').replace("'", "").replace(';', '').replace(',', ''),
+                        [i[0], i[1].replace('"', '').replace("'", "").replace(';', '').replace(',', '').replace('«',
+                                                                                                                '').replace(
+                            '»', ''),
                          self.str_to_float(i[2]),
                          self.str_to_float(i[3])])
 
@@ -528,11 +530,12 @@ class Convert(Ui_MainWindow, QMainWindow):
             self.btn_load_tardek.setText('Сформировать CSV для Тардека')
         except:
             message = QMessageBox(self)
-            message.setText('Файл не выбран')
-            message.setIcon(QMessageBox.Icon.Information)
-            message.setWindowTitle('Информация')
-            message.setStyleSheet(
-                'background-color: rgb(35, 40, 49); color: white; font-size: 10pt; font-weight: 700; font-family: RussoOne-Regular;')
+            message.setWindowFlag(Qt.WindowType.FramelessWindowHint)
+            message.setText('Не выбран файл')
+            message.setIcon(QMessageBox.Icon.Warning)
+            message.setWindowTitle('Ошибка')
+            message.setStyleSheet('background-color: rgb(35, 40, 49); color: white; font-size: 16pt;'
+                                  'font-weight: 700; font-family: RussoOne-Regular; border: 2px solid gray; border-radius: 10px;')
             message.exec()
 
     def group_kod(self):
@@ -652,7 +655,7 @@ class Convert(Ui_MainWindow, QMainWindow):
         if self.lst_full:
 
             try:
-                with open('D:\\td\output_csv.csv', 'w', encoding='utf-8-sig', newline='') as f:
+                with open('D:\\TD\output_csv.csv', 'w', encoding='utf-8-sig', newline='') as f:
                     writer = csv.writer(f, delimiter=';')
                     temp_lst = []
 
@@ -698,7 +701,6 @@ class Convert(Ui_MainWindow, QMainWindow):
             else:
                 border_country = None
 
-
             if border_country == 'LT' and kolvo_cmr == 1:
 
                 dlg = One_cmr(border_country)
@@ -711,7 +713,7 @@ class Convert(Ui_MainWindow, QMainWindow):
                 if all(lst_params):
 
                     try:
-                        with open('D:\\td\output_csv_for_tardek_lt.csv', 'w', encoding='utf-8-sig', newline='') as f:
+                        with open('D:\\TD\output_csv_for_tardek_lt.csv', 'w', encoding='utf-8-sig', newline='') as f:
                             writer = csv.writer(f, delimiter=';')
                             writer.writerows([lst_for_writerows])
                             lst_for_tardek = []
@@ -748,7 +750,7 @@ class Convert(Ui_MainWindow, QMainWindow):
             elif border_country == 'LT' and kolvo_cmr > 1:
 
                 try:
-                    with open('D:\\td\output_csv_for_tardek_lt.csv', 'w', encoding='utf-8-sig', newline='') as f:
+                    with open('D:\\TD\output_csv_for_tardek_lt.csv', 'w', encoding='utf-8-sig', newline='') as f:
                         writer = csv.writer(f, delimiter=';')
                         writer.writerows(
                             [['description', 'marks', 'quantity', 'quantityUnit', 'hsCode', 'grossWeight',
@@ -805,8 +807,9 @@ class Convert(Ui_MainWindow, QMainWindow):
             elif border_country == 'EE' and kolvo_cmr == 1:
 
                 lst_for_writerows = ['countryOfDestination',
-                                     'commodityDescriptionOfGoods', 'commodityHarmonizedSystemSubHeadingCode',
-                                     'commodityCombinedNomenclatureCode', 'goodsMeasureGrossMass',
+                                     'commodityDescriptionOfGoods',
+                                     'commodityHarmonizedSystemSubHeadingCode', 'commodityCombinedNomenclatureCode',
+                                     'goodsMeasureGrossMass',
                                      'packaging_typeOfPackages_1', 'packaging_numberOfPackages_1',
                                      'packaging_shippingMarks_1',
                                      'supportingDocument_documentType_1', 'supportingDocument_referenceNumber_1',
@@ -830,24 +833,28 @@ class Convert(Ui_MainWindow, QMainWindow):
                 lst_for_writerows = lst_for_writerows + dlg.numb_description
 
                 if all(lst_params):
+                    print(lst_params)
+                    print(self.lst_full)
                     try:
-                        with open('D:\\td\output_csv_for_tardek_lv.csv', 'w', encoding='utf-8-sig', newline='') as f:
+                        with open('D:\\TD\output_csv_for_tardek_lv.csv', 'w', encoding='utf-8-sig', newline='') as f:
                             writer = csv.writer(f, delimiter=';')
                             writer.writerows([lst_for_writerows])
                             lst_for_tardek = []
 
-                            def seven_eight_znak(n: int, lst: list) -> str:
-                                if len(lst[i][0]) == 6:
-                                    return '00'
-                                elif len(lst[i][0]) == 7:
-                                    return lst[i][0][6] + '0'
-                                else:
-                                    return lst[i][0][6:8]
+                            def seven_eight_znak(commod_kod: str) -> str:
+
+                                # if len(lst[i][0]) == 6:
+                                # return '00'
+                                # elif len(lst[i][0]) == 7:
+                                # return lst[i][0][6] + '0'
+                                if len(commod_kod) == 8:
+
+                                    return commod_kod[6:8]
+
 
                             for i in range(len(self.lst_full)):
                                 lst_for_tardek.append(
-                                    [lst_params[3], self.lst_full[i][1], self.lst_full[i][0][:6],
-                                     "'" + seven_eight_znak(i, self.lst_full),
+                                    [lst_params[3], self.lst_full[i][1], self.lst_full[i][0], seven_eight_znak(self.lst_full[i][0]),
                                      str(self.lst_full[i][2]).replace('.', ','), lst_params[5], 0, '-', 'N380',
                                      lst_params[1], '-', '1',
                                      'N730', lst_params[0], 'NZZZ', lst_params[0], '-', '1'] + lst_params[6:])

@@ -229,7 +229,7 @@ QSpinBox QAbstractItemView {
       <enum>Qt::LeftToRight</enum>
      </property>
      <property name="text">
-      <string>LT, RO, PL</string>
+      <string>LT, PL</string>
      </property>
     </widget>
    </item>
@@ -242,7 +242,7 @@ QSpinBox QAbstractItemView {
       </sizepolicy>
      </property>
      <property name="text">
-      <string>FI, EE, LV</string>
+      <string>FI, EE, LV, RO</string>
      </property>
     </widget>
    </item>

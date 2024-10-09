@@ -1,6 +1,8 @@
 import pythoncom
 import os
 
+import pywintypes
+import win32gui
 
 from openpyxl import Workbook
 from openpyxl.styles import Alignment, Border, Side, Font

@@ -184,5 +184,5 @@ class Ui_Qauntity_Border_CMR(object):
         self.country_lbl.setText(_translate("Qauntity_Border_CMR", "Страна пересечения"))
         self.btn_brd_qunt_ok.setText(_translate("Qauntity_Border_CMR", "OK"))
         self.lbl_brd_cmr.setText(_translate("Qauntity_Border_CMR", "Количество CMR"))
-        self.rdb_lt.setText(_translate("Qauntity_Border_CMR", "LT, RO, PL"))
-        self.rdb_ee.setText(_translate("Qauntity_Border_CMR", "FI, EE, LV"))
+        self.rdb_lt.setText(_translate("Qauntity_Border_CMR", "LT, PL"))
+        self.rdb_ee.setText(_translate("Qauntity_Border_CMR", "FI, EE, LV, RO"))
