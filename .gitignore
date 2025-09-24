@@ -1,0 +1,44 @@
+# === Python cache ===
+__pycache__/
+*.py[cod]
+*$py.class
+
+# === Virtual environments ===
+venv/
+env/
+.venv/
+ENV/
+
+# === IDE configs ===
+.idea/
+.vscode/
+*.iml
+
+# === System files ===
+.DS_Store
+Thumbs.db
+
+# === Logs ===
+*.log
+
+# === Data files (не храним в git) ===
+*.csv
+*.xlsx
+*.xls
+*.ods
+*.db
+*.sqlite
+*.sqlite3
+
+# === UI/Designer ===
+*.ui
+
+# === Temporary ===
+*.tmp
+*.bak
+*.swp
+
+# === Distribution/build ===
+build/
+dist/
+*.egg-info/
