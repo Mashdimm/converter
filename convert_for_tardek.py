@@ -10,7 +10,7 @@ from PyQt6 import QtWidgets, QtCore
 
 from convert import Ui_MainWindow
 
-from googletrans import Translator
+
 from collections import defaultdict
 from decimal import Decimal, getcontext
 from qauntity_cmr import Ui_Qauntity_CMR
@@ -455,7 +455,6 @@ EXPLICIT_MAP = {
     # французский / испанский / португальский / итальянский (часть покроется NFKD, но оставим явные)
     "Ç": "C", "ç": "c",
 }
-translator = Translator()
 CN = ['01012100', '01012910', '01012990', '01013000', '01019000', '01022110', '01022130', '01022190', '01022905',
       '01022910', '01022921', '01022929', '01022941', '01022949', '01022951', '01022959', '01022961', '01022969',
       '01022991', '01022999', '01023100', '01023910', '01023990', '01029020', '01029091', '01029099', '01031000',
@@ -1703,36 +1702,7 @@ class Convert(Ui_MainWindow, QMainWindow):
         s = ' '.join(s.split())
         return s.upper() if upper else s
 
-    def extract_street_and_number(addr: str) -> tuple[str, str]:
-        """
-        Извлекает номер дома из адресной строки.
-        Возвращает: (адрес_без_номера, номер)
-        Если номер не найден — вернёт (исходный_адрес, '').
-        """
-        if not addr:
-            return "", ""
 
-        s = addr.strip()
-
-        # найдём все вхождения «номероподобных» токенов
-        matches = list(HOUSE_REGEX.finditer(s))
-        if not matches:
-            return s, "-"
-
-        # берём ПОСЛЕДНЕЕ совпадение — чаще всего это и есть номер дома
-        m = matches[-1]
-        full_span = m.span(0)  # включает возможный префикс (No/Nr/№)
-        number = m.group(1).strip()
-
-        # вырезаем найденный блок из строки (аккуратно чистим лишние пробелы/запятые)
-        before = s[:full_span[0]].rstrip(",; \t")
-        after = s[full_span[1]:].lstrip(",; \t")
-
-        new_addr = (before + (" " if before and after else "") + after).strip()
-        # Схлопываем двойные пробелы
-        new_addr = re.sub(r"\s{2,}", " ", new_addr)
-
-        return new_addr, number
 
     def get_name_file(self):
         try:
@@ -1804,12 +1774,15 @@ class Convert(Ui_MainWindow, QMainWindow):
 
                     except ValueError as ve:
                         self.show_error(f"Ошибка обработки данных в строке {row}: {str(ve)}")
+                        return
 
                     except IndexError:
                         self.show_error(f"Ошибка индексации: недостаточно данных в строке {row}")
+                        return
 
                     except Exception as e:
                         self.show_error(f"Неизвестная ошибка: {str(e)}")
+                        return
             now = datetime.datetime.now()
             self.lbl_input_file.setText('Файл выбран ' + now.strftime("%d-%m-%Y %H:%M"))
             self.lbl_group_kod.setText('Коды сгруппированы ' + now.strftime("%d-%m-%Y %H:%M"))
@@ -1917,12 +1890,11 @@ class Convert(Ui_MainWindow, QMainWindow):
                 self.show_error('Нет данных для перевода')
                 return
             self.lbl_translate.setText('Переводим...')
-            dest, src = self.get_src()
+            src, dest = self.get_src()
 
-            result = translate_list(self.dict_csv['Описание'], dest, src)
+            result = translate_list(self.dict_csv['Описание'], src=src, dest=dest)
 
-            now = datetime.datetime.now()
-            self.lbl_translate.setText('Описание переведено ' + now.strftime("%d-%m-%Y %H:%M"))
+
             self.dict_csv['Описание'] = result
             for key in self.dict_csv:
                 self.dict_csv[key] = [

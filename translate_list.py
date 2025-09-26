@@ -1,19 +1,20 @@
-from googletrans import Translator
+from deep_translator import GoogleTranslator
 from time import sleep
 
 
-translator = Translator()
 
-def translate_list(lst, src, dest, delay=0.2):
+def translate_list(lst, src='ru', dest='en', delay=0.2):
     translated_texts = []
+    translator = GoogleTranslator(source=src, target=dest, delay=delay)
     try:
         for item in lst:
             try:
 
-                translated = translator.translate(item, src=src, dest=dest)
-                translated_texts.append(translated.text.upper().strip())
+                translated = translator.translate(item)
+                translated_texts.append(translated.upper().strip())
+                print(f"Переведено: {translated_texts}")
 
-                sleep(delay)
+
             except Exception as item_error:
                 translated_texts.append(item)
                 print(f"Ошибка перевода строки '{item}': {item_error}")
