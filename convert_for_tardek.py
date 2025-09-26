@@ -44,6 +44,7 @@ import xls_for_lv
 import re
 import unicodedata
 from extract_address import extract_street_and_number
+from translator_worker import TranslatorWorker
 
 language = ['af, Afrikaans', 'sq, Albanian', 'am, Amharic', 'ar, Arabic', 'hy, Armenian', 'az, Azerbaijani',
             'eu, Basque', 'be, Belarusian', 'bn, Bengali', 'bs, Bosnian', 'bg, Bulgarian', 'ca, Catalan',
@@ -1889,24 +1890,41 @@ class Convert(Ui_MainWindow, QMainWindow):
             if not self.dict_csv or not self.dict_csv.get('Описание'):
                 self.show_error('Нет данных для перевода')
                 return
-            self.lbl_translate.setText('Переводим...')
+
             src, dest = self.get_src()
+            texts = self.dict_csv['Описание']
+            self.thread = QThread()
+            self.worker = TranslatorWorker(texts, src=src, dest=dest)
+            self.worker.moveToThread(self.thread)
 
-            result = translate_list(self.dict_csv['Описание'], src=src, dest=dest)
-
-
-            self.dict_csv['Описание'] = result
-            for key in self.dict_csv:
-                self.dict_csv[key] = [
-                    ", ".join(map(str, v)) if isinstance(v, list) else v
-                    for v in self.dict_csv[key]
-                ]
-
-
+            self.worker.progress.connect(self.lbl_translate.setText)
+            self.worker.finished.connect(self.on_translation_finished)
+            self.thread.started.connect(self.worker.run)
+            self.thread.start()
         except Exception as e:
-            self.show_error(str(e))
+            print(e)
+
+    def on_translation_finished(self, result):
+        self.dict_csv['Описание'] = result
+
+        # объединяем элементы списков в строки, если нужно
+        for key in self.dict_csv:
+            self.dict_csv[key] = [
+                ", ".join(v) if isinstance(v, list) else v
+                for v in self.dict_csv[key]
+            ]
+
         now = datetime.datetime.now()
         self.lbl_translate.setText('Описание переведено ' + now.strftime("%d-%m-%Y %H:%M"))
+
+        # очищаем поток
+        self.thread.quit()
+        self.thread.wait()
+
+
+
+
+
 
     def output_csv(self):
         if self.dict_csv:
